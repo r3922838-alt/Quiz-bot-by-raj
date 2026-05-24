@@ -855,27 +855,26 @@ async def end_quiz(update: Update, context: ContextTypes.DEFAULT_TYPE,
         return
 
     # Sort scores
-    sorted_scores = sorted(scores.items(), key=lambda x: -x[1])
+sorted_scores = sorted(scores.items(), key=lambda x: -x[1])
 
-     lines = ["🏆 *Quiz Over! Final Scores*\n"]
+lines = ["🏆 *Quiz Over! Final Scores*\\n"]
 
-    medals = ["🥇", "🥈", "🥉"]
+medals = ["🥇", "🥈", "🥉"]
 
-    for i, (uid, score) in enumerate(sorted_scores):
+for i, (uid, score) in enumerate(sorted_scores):
 
-        try:
-            member = await context.bot.get_chat_member(chat_id, uid)
-            name = member.user.first_name or f"User{uid}"
+    try:
+        member = await context.bot.get_chat_member(chat_id, uid)
+        name = member.user.first_name or f"User{uid}"
 
-        except Exception:
-            name = f"User{uid}"
+    except Exception:
+        name = f"User{uid}"
 
-        medal = medals[i] if i < 3 else f"{i+1}."
+    medal = medals[i] if i < 3 else f"{i+1}."
 
-        lines.append(
-            f"{medal} {name} — {score}/{total}"
-        )
-
+    lines.append(
+        f"{medal} {name} — {score}/{total}"
+    )
     # Database leaderboard
     db_top = await db.get_leaderboard(quiz_code, 5)
 
