@@ -873,8 +873,7 @@ async def end_quiz(update: Update, context: ContextTypes.DEFAULT_TYPE,
             name = member.user.first_name or f"User{uid}"
         except:
             name = f"User{uid}"
-        medal = medals[i] if i < 3 else f"{i+1}
-        
+        medal = medals\[\] if i \< 3 else f"{i+1}"'
 lines = ["🏆 *Quiz Over! Final Scores*\n"]
     medals = ["🥇", "🥈", "🥉"]
     for i, (uid, score) in enumerate(sorted_scores):
