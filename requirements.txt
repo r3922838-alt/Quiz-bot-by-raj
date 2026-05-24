@@ -1,0 +1,14 @@
+# Telegram Bot API
+python-telegram-bot>=20.0,<22.0
+
+# Image Processing (compression + resizing)
+Pillow>=10.0.0
+
+# PDF Parsing
+PyPDF2>=3.0.0
+
+# Async File I/O
+aiofiles>=23.0.0
+
+# SQLite is built into Python standard library
+# No additional dependency needed
