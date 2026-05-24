@@ -880,7 +880,9 @@ for i, (uid, score) in enumerate(sorted_scores):
 
     if len(db_top) > len(sorted_scores):
 
-   lines.append("\n📊 *All-Time Leaderboard:*")
+     if len(db_top) > len(sorted_scores):
+
+        lines.append("\n📊 *All-Time Leaderboard:*")
 
         for i, row in enumerate(db_top[:5], 1):
 
@@ -893,7 +895,6 @@ for i, (uid, score) in enumerate(sorted_scores):
             lines.append(
                 f"{i}. {name} — {row['score']}/{row['total']}"
             )
-
     await context.bot.send_message(
     chat_id,
     "\n".join(lines),
