@@ -857,8 +857,7 @@ async def end_quiz(update: Update, context: ContextTypes.DEFAULT_TYPE,
     # Sort scores
     sorted_scores = sorted(scores.items(), key=lambda x: -x[1])
 
-    lines = ["🏆 *Quiz Over! Final Scores*
-"]
+     lines = ["🏆 *Quiz Over! Final Scores*\n"]
 
     medals = ["🥇", "🥈", "🥉"]
 
