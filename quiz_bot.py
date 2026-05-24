@@ -1228,38 +1228,12 @@ async def post_init(application: Application):
     print("✅ Database initialized. Bot is ready.")
 
 
-async def main():
-    """Entry point."""
-    application = Application.builder() \
-        .token(BOT_TOKEN) \
-        .post_init(post_init) \
-        .build()
-
-    # Basic commands
-    application.add_handler(CommandHandler("start", start))
-    application.add_handler(CommandHandler("help", help_command))
-    application.add_handler(CommandHandler("credits", credits_command))
-    application.add_handler(CommandHandler("myquizzes", my_quizzes))
-    application.add_handler(CommandHandler("mystats", my_stats))
-    application.add_handler(CommandHandler("leaderboard", global_leaderboard))
-    application.add_handler(CommandHandler("lb", quiz_leaderboard_command))
-    application.add_handler(CommandHandler("leaderboard_code", quiz_leaderboard_command))
-
-    # Play command
-    application.add_handler(CommandHandler("play", play_quiz))
-
-    # Answer callback handler
-    application.add_handler(CallbackQueryHandler(handle_answer, pattern=r"^ans_"))
-
-    # Conversation handlers
-    application.add_handler(build_create_conversation_handler())
-    application.add_handler(build_admin_conversation_handler())
-
-    print("🚀 Quiz Bot is running...")
-    await application.run_polling(allowed_updates=Update.ALL_TYPES)
-
-
 if __name__ == "__main__":
+    import asyncio
+
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+
     app = Application.builder() \
         .token(BOT_TOKEN) \
         .post_init(post_init) \
@@ -1279,12 +1253,18 @@ if __name__ == "__main__":
     app.add_handler(CommandHandler("play", play_quiz))
 
     # Answer callback handler
-    app.add_handler(CallbackQueryHandler(handle_answer, pattern=r"^ans_"))
+    app.add_handler(
+        CallbackQueryHandler(handle_answer, pattern=r"^ans_")
+    )
 
     # Conversation handlers
     app.add_handler(build_create_conversation_handler())
     app.add_handler(build_admin_conversation_handler())
 
     print("🚀 Quiz Bot is running...")
-    app.run_polling()
 
+    loop.run_until_complete(app.initialize())
+    loop.run_until_complete(app.start())
+    loop.run_until_complete(app.updater.start_polling())
+
+    loop.run_forever()
