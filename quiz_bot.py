@@ -386,5 +386,3 @@ async def create_method_choice(update: Update, context: ContextTypes.DEFAULT_TYP
             "Format each question like:\n"
             "
 http://googleusercontent.com/immersive_entry_chip/0
-
-अब आप इस पूरे कोड को कॉपी करके अपनी `quiz_bot.py` फ़ाइल में सेव (replace) कर दीजिए, फिर गिटहब पर कमिट करके रेंडर (Render) पर चेक कीजिये। डिप्लॉयमेंट एकदम सक्सेसफुल हो जाएगा!
