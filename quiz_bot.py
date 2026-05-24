@@ -880,8 +880,7 @@ for i, (uid, score) in enumerate(sorted_scores):
 
     if len(db_top) > len(sorted_scores):
 
-        lines.append("
-📊 *All-Time Leaderboard:*")
+   lines.append("\n📊 *All-Time Leaderboard:*")
 
         for i, row in enumerate(db_top[:5], 1):
 
@@ -896,9 +895,8 @@ for i, (uid, score) in enumerate(sorted_scores):
             )
 
     await context.bot.send_message(
-        chat_id,
-        "
-".join(lines),
+    chat_id,
+    "\n".join(lines),
         parse_mode=ParseMode.MARKDOWN
     )
 
