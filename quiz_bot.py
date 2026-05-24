@@ -1260,6 +1260,31 @@ async def main():
 
 
 if __name__ == "__main__":
-    import asyncio
-    asyncio.run(main())
+    app = Application.builder() \
+        .token(BOT_TOKEN) \
+        .post_init(post_init) \
+        .build()
+
+    # Basic commands
+    app.add_handler(CommandHandler("start", start))
+    app.add_handler(CommandHandler("help", help_command))
+    app.add_handler(CommandHandler("credits", credits_command))
+    app.add_handler(CommandHandler("myquizzes", my_quizzes))
+    app.add_handler(CommandHandler("mystats", my_stats))
+    app.add_handler(CommandHandler("leaderboard", global_leaderboard))
+    app.add_handler(CommandHandler("lb", quiz_leaderboard_command))
+    app.add_handler(CommandHandler("leaderboard_code", quiz_leaderboard_command))
+
+    # Play command
+    app.add_handler(CommandHandler("play", play_quiz))
+
+    # Answer callback handler
+    app.add_handler(CallbackQueryHandler(handle_answer, pattern=r"^ans_"))
+
+    # Conversation handlers
+    app.add_handler(build_create_conversation_handler())
+    app.add_handler(build_admin_conversation_handler())
+
+    print("🚀 Quiz Bot is running...")
+    app.run_polling()
 
